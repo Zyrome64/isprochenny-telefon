@@ -39,9 +39,8 @@ def handle_dialog(req, res):
 
         sessionStorage[user_id] = {
             'suggests': [
-                "1",
-                "2",
-                "3",
+                {'title': "Да", 'hide': True},
+                {'title': "Нет", 'hide': True}
             ]
         }
         res['response']['text'] = 'Привет!'
