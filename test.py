@@ -3,6 +3,7 @@ from flask import Flask, request
 import requests
 import json
 import logging
+import os
 
 # создаём приложение
 # мы передаём __name__, в нём содержится информация, в каком модуле мы находимся.
@@ -124,5 +125,6 @@ def get_suggests(user_id):
     return suggests
 
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
