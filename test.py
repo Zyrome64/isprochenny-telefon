@@ -49,6 +49,7 @@ def handle_dialog(req, res):
 
     response = requests.get('https://deckofcardsapi.com/api/deck/new/shuffle/').json()
     res['response']['text'] = str(response)
+    x = 5 / 0
     return
 
 #     if req['request']['original_utterance'].lower() in [
