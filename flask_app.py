@@ -61,11 +61,37 @@ def handle_dialog(res, req):
             'original_message': None,
             'message': None
         }
+        res['response']['buttons'] = [
+            {
+                'title': 'Помощь',
+                'hide': True
+            },
+            {
+                'title': 'Что ты умеешь?',
+                'hide': True
+            },
+            {
+                'title': 'Выход',
+                'hide': True
+            }
+        ]
         return
     if 'original_message' not in sessionStorage[user_id]:
         sessionStorage[user_id]['original_message'] = None
     if sessionStorage[user_id]['original_message'] is None:
-        if len(req['request']['original_utterance']) > 100:
+        if req['request']['original_utterance'].lower() == 'выход':
+            res['response']['text'] = 'Спасибо, что воспользовались этим навыком!'
+            res['end_session'] = True
+            return
+        elif req['request']['original_utterance'].lower() in ['помощь', 'что ты умеешь', 'что ты умеешь?']:
+            res['response']['text'] = 'Навык "Испорченный телефон", переводя ваше сообщение на разные языки, выдаёт интересный результат, поверьте, это весело!'
+            res['response']['buttons'] = [
+                {
+                    'title': 'Выход',
+                    'hide': True
+                }
+            ]
+        elif len(req['request']['original_utterance']) > 100:
             res['response']['text'] = 'Ваше сообщение слишком длинное, введите что-нибудь покороче!'
         else:
             sessionStorage[user_id]['original_message'] = req['request']['original_utterance']
