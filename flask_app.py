@@ -117,7 +117,7 @@ def handle_dialog(res, req):
             ]
         return
     else:
-        if 'ещё' in req['request']['nlu']['tokens']:
+        if req['request']['original_utterance'].lower() == 'ещё':
             sessionStorage[user_id]['message'] = chain_translate(sessionStorage[user_id]['message'], LANG)
             res['response']['text'] = '[[' + sessionStorage[user_id]['message'] + ']]'
             res['response']['buttons'] = [
